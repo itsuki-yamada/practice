@@ -54,3 +54,68 @@ success Saved lockfile.
  $ cd gas-account-book
  $ yarn serve
 ```
+
+2. [Vuetifyのインストール](https://vuetifyjs.com/en/introduction/why-vuetify/)
+   vueのマテリアルデザインフレームワーク
+```
+➜  gas-account-book [develop✔ ]vue add vuetify                                                                                                                              [develop|✔ ]
+
+📦  Installing vue-cli-plugin-vuetify...
+
+yarn add v1.22.10
+[1/4] 🔍  Resolving packages...
+[2/4] 🚚  Fetching packages...
+[3/4] 🔗  Linking dependencies...
+[4/4] 🔨  Building fresh packages...
+success Saved lockfile.
+success Saved 5 new dependencies.
+info Direct dependencies
+└─ vue-cli-plugin-vuetify@2.0.7
+info All dependencies
+├─ interpret@1.4.0
+├─ null-loader@3.0.0
+├─ rechoir@0.6.2
+├─ shelljs@0.8.4
+└─ vue-cli-plugin-vuetify@2.0.7
+✨  Done in 3.67s.
+✔  Successfully installed plugin: vue-cli-plugin-vuetify
+
+? Choose a preset: Default (recommended)
+
+🚀  Invoking generator for vue-cli-plugin-vuetify...
+📦  Installing additional dependencies...
+
+yarn install v1.22.10
+[1/4] 🔍  Resolving packages...
+[2/4] 🚚  Fetching packages...
+[3/4] 🔗  Linking dependencies...
+[4/4] 🔨  Building fresh packages...
+success Saved lockfile.
+✨  Done in 6.43s.
+⚓  Running completion hooks...
+
+✔  Successfully invoked generator for plugin: vue-cli-plugin-vuetify
+ vuetify  Discord community: https://community.vuetifyjs.com
+ vuetify  Github: https://github.com/vuetifyjs/vuetify
+ vuetify  Support Vuetify: https://github.com/sponsors/johnleider
+```
+
+3. yarn serve サーバを起動する
+```
+➜  gas-account-book [develop) ✗ ]yarn serve                                                                                                                               [develop|+6… ]
+yarn run v1.22.10
+$ vue-cli-service serve
+ INFO  Starting development server...
+98% after emitting CopyPlugin
+
+ DONE  Compiled successfully in 17061ms                                                                                                                                           3:31:29
+
+
+  App running at:
+  - Local:   http://localhost:8080/ 
+  - Network: http://192.168.0.30:8080/
+
+  Note that the development build is not optimized.
+  To create a production build, run yarn build.
+  ```
+  `http://localhost:8080/`にアクセスできることを確認する
