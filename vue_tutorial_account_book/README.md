@@ -119,3 +119,15 @@ $ vue-cli-service serve
   To create a production build, run yarn build.
   ```
   `http://localhost:8080/`にアクセスできることを確認する
+
+4. ファイル構成の確認  
+asets : ロゴなどのアセット
+compornents : 主に再利用するコンポーネント  
+plugins : vuetifyなどのプラグイン  
+store : Vuexストアの設定  
+views : ページを設定するvueファイル  
+App.vue : Vueアプリのメインファイル  
+main.js : エントリポイントとなるファイル  
+
+
+   
