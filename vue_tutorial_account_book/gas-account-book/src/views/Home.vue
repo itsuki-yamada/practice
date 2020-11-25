@@ -68,6 +68,31 @@
         :items-per-page="30"
         mobile-breakpoint="0"
       >
+        <!-- 日付列 -->
+        <template v-slot:[`item.date`]="{ item }">
+          {{ parseInt(item.date.slice(-2)) + "日" }}
+        </template>
+        <!-- タグ列 -->
+        <template v-slot:[`item.tags`]="{ item }">
+          <div v-if="item.tags">
+            <v-chip class="mr-2" v-for="(tag, i) in item.tags.split(',')" :key="i">
+              {{ tag }}
+            </v-chip>
+          </div>
+        </template>
+        <!-- 収入列 -->
+        <template v-slot:[`item.income`]="{ item }">
+          {{ separate(item.income) }}
+        </template>
+        <!-- 支出列 -->
+        <template v-slot:[`item.outgo`]="{ item }">
+          {{ separate(item.outgo) }}
+        </template>
+        <!-- 操作列 -->
+        <template v-slot:[`item.actions`]="{}">
+          <v-icon class="mr-2">mdi-pencil</v-icon>
+          <v-icon>mdi-delete</v-icon>
+        </template>
       </v-data-table>
     </v-card>
   </div>
@@ -96,48 +121,53 @@ export default {
         // サンプルデータ
         // 支出
         {
-          id: 'a34109ed',
-          date: '2020-11-24',
-          title: '支出サンプル',
-          category: '買い物',
-          tags: 'タグ1',
+          id: "a34109ed",
+          date: "2020-11-24",
+          title: "支出サンプル",
+          category: "買い物",
+          tags: "タグ1",
           income: null,
           outgo: 2000,
-          memo: 'メモ',
+          memo: "メモ",
         },
         // 収入サンプル
         {
-          id: 'a34110ed',
-          date: '2020-11-25',
-          title: '収入サンプル',
-          category: '給与',
-          tags: 'タグ1,タグ2',
+          id: "a34110ed",
+          date: "2020-11-25",
+          title: "収入サンプル",
+          category: "給与",
+          tags: "タグ1,タグ2",
           income: 2000,
           outgo: null,
-          memo: 'メモ',
-        }
-      ]
-    }
+          memo: "メモ",
+        },
+      ],
+    };
   },
   computed: {
     //   テーブルのヘッダー設定
-    tableHeaders (){
-        return[
-            {text: '日付',value:'date',align:'end'},
-            {text: 'タイトル',value:'title',sortable:'false'},
-            {text: 'カテゴリ',value:'category',sortable:'false'},
-            {text: 'タグ',value:'tags',sortable:'false'},
-            {text: '収入',value:'income',align:'end'},
-            {text: '支出',value:'outgo',align:'end'},
-            {text: 'メモ',value:'memo',sortable:'false'},
-            {text: '操作',value:'actions',sortable:'false'}
-        ]
+    tableHeaders() {
+      return [
+        { text: "日付", value: "date", align: "end" },
+        { text: "タイトル", value: "title", sortable: "false" },
+        { text: "カテゴリ", value: "category", sortable: "false" },
+        { text: "タグ", value: "tags", sortable: "false" },
+        { text: "収入", value: "income", align: "end" },
+        { text: "支出", value: "outgo", align: "end" },
+        { text: "メモ", value: "memo", sortable: "false" },
+        { text: "操作", value: "actions", sortable: "false" },
+      ];
     },
-    
+
     // テーブルのfooter設定
-    footerProps(){
-        return {itemsPerPageText: '',itemsPerPageOptions: []}
-    }
-  }
+    footerProps() {
+      return { itemsPerPageText: "", itemsPerPageOptions: [] };
+    },
+  },
+  methods: {
+    separate(num) {
+      return num !== null ? num.toString().replace(/(\d)(?=(\d{3})+$)/g, "$1,") : null;
+    },
+  },
 };
 </script>
