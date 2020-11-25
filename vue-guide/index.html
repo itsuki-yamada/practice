@@ -37,6 +37,17 @@
       <p>{{ message }}</p>
       <input v-model="message" />
     </div>
+    <!-- コンポーネントによる構成 -->
+    <div id="app-7">
+      <ol>
+        <!--
+      各 todo-item の内容を表す todo オブジェクトを与えます。
+      これにより内容は動的に変化します。
+      また後述する "key" を各コンポーネントに提供する必要があります。
+    -->
+        <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"> </todo-item>
+      </ol>
+    </div>
 
     <script>
       var app = new Vue({
@@ -87,6 +98,23 @@
         el: "#app-6",
         data: {
           message: "Hello Vue",
+        },
+      });
+      //   コンポーネントによる構成
+      Vue.component("todo-item", {
+        // todo-item コンポーネントはカスタム属性のような "プロパティ" で受け取ります。
+        // このプロパティは todo と呼ばれます。
+        props: ["todo"],
+        template: "<li>{{ todo.text }}</li>",
+      });
+      var app7 = new Vue({
+        el: "#app-7",
+        data: {
+          groceryList: [
+            { id: 0, text: "Vegetables" },
+            { id: 1, text: "Cheese" },
+            { id: 2, text: "Whatever else humans are supposed to eat" },
+          ],
         },
       });
     </script>
