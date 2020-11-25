@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>EventHandler</title>
+  </head>
+  <body>
+    <!-- イベントの購読 -->
+    <div id="example-1">
+      <button v-on:click="counter += 1">Add 1</button>
+      <p>The button above been clicked {{ counter }} times.</p>
+    </div>
+    <!-- メソッドイベントハンドラ -->
+    <div id="example-2">
+      <!-- 'greet'は予め定義下メソッドの名前 -->
+      <button v-on:click="greet">Greet</button>
+    </div>
+    <!-- インラインメソッドハンドラ -->
+    <div id="exapmple-3">
+      <button v-on:click="say('hi')">Say hi</button>
+      <button v-on:click="say('what')">Say what</button>
+      <!-- インラインステートメントハンドラでオリジナルのDOMイベントを参照 -->
+      <button v-on:click="warn('Form can not be submittedyet.',$event)">Submit</button>
+    </div>
+
+    <script>
+      // イベントの購読
+      var example1 = new Vue({
+        el: "#example-1",
+        data: {
+          counter: 0,
+        },
+      });
+      // メソッドイベントハンドラ
+      var example2 = new Vue({
+        el: "#example-2",
+        data: {
+          name: "Vue.js",
+        },
+        methods: {
+          greet: function (event) {
+            // メソッド内の`this`はVueインスタンスを指す
+            alert("Hello " + this.name);
+            if (event) {
+              alert(event.target.tagName);
+            }
+          },
+        },
+      });
+
+      var example3 = new Vue({
+        el: "#exapmple-3",
+        methods: {
+          say: function (message) {
+            alert(message);
+          },
+          //  インラインステートメントハンドラでオリジナルのDOMイベントを呼び出す
+          warn: function (message, event) {
+            // ネイティブイベントを参照する
+            if (event) {
+              event.preventDefault();
+            }
+            alert(message);
+          },
+        },
+      });
+
+      //   メソッドイベントハンドラ
+      // JavaScriptからメソッド呼び出し
+      example2.greet();
+    </script>
+  </body>
+</html>
