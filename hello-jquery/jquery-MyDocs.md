@@ -48,6 +48,17 @@ $('div').css('color','red').html('jQuery');
 ```
 
 ## イベント
+
+### onloadイベント
+```js:example
+$(document).ready(function(){
+    // HTMLの読み込みが完了してから実行する
+})
+//　readyファンクションの省略形
+$(function(){
+    // この中にjQueryを書く
+})
+```
 ### クリックイベント
 ```js
 $('セレクタ').イベント名(function(){
@@ -73,17 +84,6 @@ $('div').hover(
 ## メソッド
 
 ### 表示
-#### モーダルウィンドウの表示
-```css:example
-.login-modal-wrapper{
-    display:none;
-}
-```
-```js:example
-$('#login-show').click(function(){
-    $('#login-modal').fadeIn();
-})
-```
 
 #### 要素を隠す
 ##### hide,fadeOut,slideUp
