@@ -6,6 +6,29 @@ jQueryはJavaScriptのライブラリの1つです。
 ## jQueryの書き方
 jQueryの使い方は、①jQueryオブジェクトを作成し、②そのjQueryオブジェクトに対してメソッド（機能）を呼び出す、という2つが基本になります。jQueryはJavaScript（JS）なので、文末にセミコロンが必要です。またコメントもJS同様に//を用います。
 
+## jQueryの読み込み
+jQueryを使用するには、jQueryライブラリを読み込む必要があります。ライブラリは[インターネット経由](https://developers.google.com/speed/libraries#jquery)で読み込むのが一般的です。<head>タグの中で下図のようにURLを読み込むことで、jQueryが使用できるようになります。
+jQueryは、.js形式のファイルにコードを書きます。 HTMLファイルで、`<script src="ファイルのURL"></script>`と書くことで、jQueryのコードを記述するファイルが読み込まれます。 `<script>`はCSSファイルの読み込みのように`<head>`タグの中にも書けますが、`</body>`の直前に書くことで、WEBページの表示速度をより早めることが出来ます。
+```html:example
+<head>
+    // google url https://developers.google.com/speed/libraries#jquery
+    <script src="https://...jquery.min.js"></script>
+</head>
+<body>
+    <script src="script.js"></script>
+</body>
+```
+## jQueryの型
+jQueryはHTMLの中身を操作するため、HTMLの読み込みが完了してからjQueryによる操作を開始するようにします。 そのためにはreadyイベントを使用し、`$(document).ready()`の中身にjQueryの処理を書いていきます。 この構文には省略形も用意されており、`$(function(){ });`と書くことも出来ます。
+```js:example
+$(document).ready(function(){
+    // HTMLの読み込みが完了してから実行する
+})
+//　readyファンクションの省略形
+$(function(){
+    // この中にjQueryを書く
+})
+```
 
 ### 変数を使う
 同じjQueryオブジェクトを複数回使用する時は変数にしましょう。コードが見やすくなる上、jQueryの処理が高速化されます。 JavaScriptと同じく、jQueryで変数宣言にはvarを用います。変数には文字列や数値、jQueryオブジェクトなどを格納することができますが、**jQueryオブジェクトを格納する時は、わかりやすいように変数の頭に$を付けるのが慣例**となっています。
@@ -50,6 +73,18 @@ $('div').hover(
 ## メソッド
 
 ### 表示
+#### モーダルウィンドウの表示
+```css:example
+.login-modal-wrapper{
+    display:none;
+}
+```
+```js:example
+$('#login-show').click(function(){
+    $('#login-modal').fadeIn();
+})
+```
+
 #### 要素を隠す
 ##### hide,fadeOut,slideUp
 
@@ -84,7 +119,20 @@ p{
 ```js:example
 $('p').css('color','red');
 ```
-
+#### addClass
+```js:addClass
+$('.text-contents').addClass('text-active')
+```
+#### removeClass
+```js:removeClass
+$('.text-contents').removeClass('text-active')
+```
+#### hasClass
+引数に指定したクラスを、オブジェクトが持っているか判定するときに使用します。オブジェクトがそのクラスを持っていればtrue、持っていなければfalseを返します。
+```js:hasClass
+$('.answer').hasClass('open');
+$('.answer open').hasClass('open');
+```
 ### HTMLを変更する
 #### html
 ```html:example
