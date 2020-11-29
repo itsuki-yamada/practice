@@ -164,3 +164,45 @@ childrenメソッドは、**指定したセレクタが持つ子要素（一階�
 ```js:children
 $('#wrapper').children('a').css('color','red');
 ```
+
+#### eq
+jQueryオブジェクトの中から、eqの引数の数字と同じインデックス番号の要素を取得できます。
+```html:example
+<ul>
+    <li>インデックス0</li>
+    <li>インデックス1</li>
+    <li>インデックス2</li>
+</ul>
+```
+```js:example
+// 0インデックスのため、3番目のliタグを指定
+$('li').eq(2).css('color','red');
+```
+
+#### index
+indexメソッドを用いると、「li」要素の中の「.active」要素のインデックス番号（1）を取得できます。
+```html:example
+<ul>
+    <li>HTML</li>
+    <li class="active">CSS</li>
+    <li>jQuery</li>
+</ul>
+```
+```js:example
+// li要素における.active要素のインデックス番号(1)を取得
+$('li').index($('.active'));
+```
+
+#### prev next
+prevメソッドは、jQueryオブジェクトの兄弟要素（同じ階層の要素）の中から1つ前の要素を、nextメソッドは1つ後ろの要素を取得することができます
+```html:example
+<ul>
+    <li>prev</li>
+    <li id="center">center</li>
+    <li>next</li>
+</ul>
+```
+```js:example
+$('#center').prev().css('color','red');
+$('#center').next().css('color','blue');
+```
