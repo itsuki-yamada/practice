@@ -65,14 +65,19 @@
         },
         methods: {
             handleClick() {
-                // filteredTodoItemsに再計算した配列を与える
-                updateFilteredTodoItems() {
-                    this.filteredTodoItems = this.filterValue
-                        ?   this.todoItems.filter((todo) =>
-                            todo.text.includes(this.filterValue)
-                        )
-                        : this.todoItems
-                }
+                this.todoItems.push({
+                    id: this.todoItems.length + 1,
+                    done: false,
+                    text: this.inputValue
+                })
+            },
+            // filteredTodoItemsに再計算した配列を与える
+            updateFilteredTodoItems() {
+                this.filteredTodoItems = this.filterValue
+                    ?   this.todoItems.filter((todo) =>
+                        todo.text.includes(this.filterValue)
+                    )
+                    : this.todoItems
             }
         }
     }
