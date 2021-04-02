@@ -27,43 +27,50 @@
 <script>
     export default {
         data() {
+            const todoItems = [
+                {
+                    id: 1,
+                    done: false,
+                    text: 'Go out to sea'
+                },
+                {
+                    id: 2,
+                    done: false,
+                    text: 'Invite the first member'
+                }
+            ]
             return {
                 inputValue: '',
-                todoItems: [
-                    {
-                        id: 1,
-                        done: false,
-                        text: 'Go out to sea'
-                    },
-                    {
-                        id: 2,
-                        done: false,
-                        text: 'Invite the first member'
-                    }
-                ],
+                todoItems,
+                filteredTodoItems: todoItems,
                 filterValue: ''
             }
         },
-        computed: {
-            filteredTodoItems(){
-                if(!this.filterValue) {
-                    return this.todoItems
-                }
-                return this.todoItems.filter((todo) => {
-                    return todo.text.includes(this.filterValue)
-            }   )
-            }
+        // watchオプションに定義したメソッドは、同じ名前のプロパティの値が変更されたときに呼び出される
+        watch: {
+            // filterValueの値の変更を監視し、filteredTodoItemsを再計算する
+            filterValue() {
+                this.updateFilteredTodoItems()
+            },
+            // todoItemsの値の変更を監視し、filteredTodoItemsを再計算する
+            todoItems: {
+                handler() {
+                    this.updateFilteredTodoItems()
+                },
+                // 深く監視することで配列要素の変更も監視する
+                deep: true
+            },
         },
         methods: {
             handleClick() {
-                // 入力をリストに追加
-                this.todoItems.push({
-                    id: this.todoItems + 1,
-                    text: this.inputValue
-                })
-                // 入力をクリアする
-                this.inputValue=''
-                console.log(this);
+                // filteredTodoItemsに再計算した配列を与える
+                updateFilteredTodoItems() {
+                    this.filteredTodoItems = this.filterValue
+                        ?   this.todoItems.filter((todo) =>
+                            todo.text.includes(this.filterValue)
+                        )
+                        : this.todoItems
+                }
             }
         }
     }
