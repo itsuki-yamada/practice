@@ -5,7 +5,7 @@
     <!-- v-onディレクトリ　イベントハンドラの登録 -->
     <!-- v-on:イベント名="イベントハンドラ名" 省略記法=> @イベント名 -->
     <button v-on:click="handleClick">
-        submit
+        add
     </button>
 
     <ul>
@@ -29,7 +29,14 @@
         },
         methods: {
             handleClick() {
-                alert(this.inputValue)
+                // 入力をリストに追加
+                this.todoItems.push({
+                    id: this.todoItems + 1,
+                    text: this.inputValue
+                })
+                // 入力をクリアする
+                this.inputValue=''
+                console.log(this);
             }
         }
     }
