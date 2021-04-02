@@ -65,6 +65,7 @@
                     done: false,
                     text: this.inputValue
                 })
+                this.inputValue = ''
             }
         }
     }
