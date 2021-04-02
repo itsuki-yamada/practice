@@ -67,3 +67,31 @@ src/App.vueで<template>で使用できるようにimportする
     }
 </script>
 '''
+
+### v-forディレクティブ
+'''vue
+<template>
+    <ul>
+        <!-- v-for="反復エイリアス in 配列" -->
+        <!-- v-bind:keyにToDoアイテムのidを与えるように実装している
+        key属性はVueにとっての特別な属性で、実際の要素には反映されない。
+        key属性を与えると、Vueは要素を生成、更新する際に各要素の識別情報として扱うので、意図しない描画の問題を防ぎ最適化をする効果がある。
+         -->
+        <li v-for="todo in todoItems"
+        v-bind:key="todo.id"
+        >
+            {{ todo.text }}  
+        </li>
+    </ul>
+</template>
+<script>
+    export default {
+        data() {
+            return { todoItems: [
+                { id: 1, text: 'Go out to sea'},
+                { id: 2, text: 'Invite the first member'}
+            ]}
+        }
+    }
+</script>
+'''
