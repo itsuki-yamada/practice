@@ -1,27 +1,33 @@
 <template>
-    <!-- 双方向データバインディング　inputの入力内容をプロパティに受け取る -->
-    <input v-model="inputValue">
 
-    <!-- v-onディレクトリ　イベントハンドラの登録 -->
-    <!-- v-on:イベント名="イベントハンドラ名" 省略記法=> @イベント名 -->
+    <!-- todoリスト -->
+    <input v-model="inputValue">
     <button v-on:click="handleClick">
         add
     </button>
 
+    <!-- フィルタ機能 -->
+    <input
+        v-model="filterValue"
+        placeholder="フィルタテキスト"
+    >
+
     <ul>
-        <li v-for="todo in todoItems"
-        v-bind:key="todo.id"
-        v-on:click="todo.done = !todo.done"
+        <li
+            v-for="todo in filteredTodoItems"
+            v-bind:key="todo.id"
+            v-on:click="todo.done = !todo.done"
         >
-        <span v-if="todo.done">✔</span>
-            {{ todo.text}}
+            <span v-if="todo.done">✔</span>
+            {{ todo.text }}
         </li>
     </ul>
 </template>
+
 <script>
     export default {
-        data(){
-            return{
+        data() {
+            return {
                 inputValue: '',
                 todoItems: [
                     {
@@ -34,7 +40,18 @@
                         done: false,
                         text: 'Invite the first member'
                     }
-                ]
+                ],
+                filterValue: ''
+            }
+        },
+        computed: {
+            filteredTodoItems(){
+                if(!this.filterValue) {
+                    return this.todoItems
+                }
+                return this.todoItems.filter((todo) => {
+                    return todo.text.includes(this.filterValue)
+            }   )
             }
         },
         methods: {
