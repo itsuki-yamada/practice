@@ -14,3 +14,15 @@ cd [app名]
 npm install
 npm run dev
 '''
+
+## 単一ファイルコンポーネント SFC Single File Components
+SFC... コンポーネントのJavaScript,HTML,CSSを、<template>,<script>などのブロックを使用して単一ファイルに記述する。
+そのため、分散されたファイルから必要なコードを探す手間がなく、コンポーネントに必要な関心ごとを1箇所に集約できる。
+
+*src/componentsに配置する*
+SFCを利用するときはsrc/App.vueでインポートする
+
+
+## componentsの作成
+src/components内に作成する
+src/App.vueで<template>で使用できるようにimportする
