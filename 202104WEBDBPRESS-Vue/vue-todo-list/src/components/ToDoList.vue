@@ -48,20 +48,15 @@
                 filterValue: ''
             }
         },
-        // watchオプションに定義したメソッドは、同じ名前のプロパティの値が変更されたときに呼び出される
-        watch: {
-            // filterValueの値の変更を監視し、filteredTodoItemsを再計算する
-            filterValue() {
-                this.updateFilteredTodoItems()
-            },
-            // todoItemsの値の変更を監視し、filteredTodoItemsを再計算する
-            todoItems: {
-                handler() {
-                    this.updateFilteredTodoItems()
-                },
-                // 深く監視することで配列要素の変更も監視する
-                deep: true
-            },
+        computed: {
+            filteredTodoItems() {
+                if (!this.filterValue) {
+                    return this.todoItems
+                }
+                return this.todoItems.filter((todo)=>{
+                    return todo.text.includes(this.filterValue)
+                })
+            }
         },
         methods: {
             handleClick() {
@@ -70,14 +65,6 @@
                     done: false,
                     text: this.inputValue
                 })
-            },
-            // filteredTodoItemsに再計算した配列を与える
-            updateFilteredTodoItems() {
-                this.filteredTodoItems = this.filterValue
-                    ?   this.todoItems.filter((todo) =>
-                        todo.text.includes(this.filterValue)
-                    )
-                    : this.todoItems
             }
         }
     }
