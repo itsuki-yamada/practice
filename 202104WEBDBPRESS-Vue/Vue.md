@@ -26,3 +26,44 @@ SFCを利用するときはsrc/App.vueでインポートする
 ## componentsの作成
 src/components内に作成する
 src/App.vueで<template>で使用できるようにimportする
+
+
+'''vue
+<template>
+    <ul>
+        <li>
+            {{ todo }}  
+            <!-- Mustache構文といわれる二重の波かっこを使用してJavaScriptを記述する方法-->
+        </li>
+    </ul>
+</template>
+<script>
+    export default {
+        // dataオプションのreturnに定義されたプロパティは、コンポーネントのプロパティとして状態を保持し、<template>で使用できる
+        data() {
+            return { todo: 'Go out to sea'}
+        }
+    }
+</script>
+'''
+
+### 属性値のバインディング
+属性の先頭に**v-bind:**とつけて、**v-bind:属性名**と記述すると属性の値にJavaScript式を記述できるようになり、属性に式の結果を与えることができる
+'''vue
+<template>
+    <ul>
+        <li v-bind:title="todo">
+            {{ todo }}  
+            <!-- Mustache構文といわれる二重の波かっこを使用してJavaScriptを記述する方法-->
+        </li>
+    </ul>
+</template>
+<script>
+    export default {
+        // dataオプションのreturnに定義されたプロパティは、コンポーネントのプロパティとして状態を保持し、<template>で使用できる
+        data() {
+            return { todo: 'Go out to sea'}
+        }
+    }
+</script>
+'''
