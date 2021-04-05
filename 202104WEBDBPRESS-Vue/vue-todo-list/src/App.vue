@@ -1,4 +1,6 @@
 <template>
+  <h1>ToDoList</h1>
+
   <!-- ToDolistを使用する -->
   <ToDoList />
 </template>

@@ -1,35 +1,48 @@
 <template>
+    <div>
+        <!-- todoリスト -->
+        <input v-model="inputValue">
+        <button v-on:click="handleClick">
+            add
+        </button>
 
-    <!-- todoリスト -->
-    <input v-model="inputValue">
-    <button v-on:click="handleClick">
-        add
-    </button>
+        <br>
 
-    <!-- フィルタ機能 -->
-    <input
-        v-model="filterValue"
-        placeholder="フィルタテキスト"
-    >
-
-    <ul>
-        <li
-            v-for="todo in filteredTodoItems"
-            v-bind:key="todo.id"
-            class="todo-item"
-            v-bind:class="{'done': todo.done}"
-            v-on:click="todo.done = !todo.done"
+        <!-- フィルタ機能 -->
+        <input
+            v-model="filterValue"
+            placeholder="フィルタテキスト"
         >
-            <span v-if="todo.done">✔</span>
-            {{ todo.text }}
-        </li>
-    </ul>
+
+        <ul>
+            <ToDoItem
+                v-for="todo in filteredTodoItems"
+                v-bind:key="todo.id"
+                v-bind:text="todo.text"
+                v-bind:done="todo.done"
+                v-on:toggle="todo.done = !todo.done"
+            />
+            <!-- <li
+                v-for="todo in filteredTodoItems"
+                v-bind:key="todo.id"
+                class="todo-item"
+                v-bind:class="{'done': todo.done}"
+                v-on:click="todo.done = !todo.done">
+                <span v-if="todo.done">✓</span> {{ todo.text }}
+            </li> -->
+        </ul>
+    </div>
 </template>
 
 <script>
+    import ToDoItem from './ToDoItem.vue'
+
     export default {
+        components: { ToDoItem },
         data() {
-            const todoItems = [
+            return {
+                inputValue: '',
+                todoItems: [
                 {
                     id: 1,
                     done: false,
@@ -40,11 +53,7 @@
                     done: false,
                     text: 'Invite the first member'
                 }
-            ]
-            return {
-                inputValue: '',
-                todoItems,
-                filteredTodoItems: todoItems,
+            ],
                 filterValue: ''
             }
         },
