@@ -6,19 +6,24 @@
 
   <!-- transitionを使用したアニメーション -->
   <TextAnimation />
+
+  <!-- CompositionAPIを使用したカウントアップボタン -->
+  <ClickCounter />
 </template>
 
 <script>
 // ToDoListをインポート
-import ToDoList from './components/ToDoList.vue'
-import TextAnimation from './components/TextAnimation.vue'
+import ToDoList from "./components/ToDoList.vue";
+import TextAnimation from "./components/TextAnimation.vue";
+import ClickCounter from "./components/ClickCounter.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     // ToDoListを<template>で使用できるようにする
     ToDoList,
-    TextAnimation
-  }
-}
+    TextAnimation,
+    ClickCounter,
+  },
+};
 </script>
