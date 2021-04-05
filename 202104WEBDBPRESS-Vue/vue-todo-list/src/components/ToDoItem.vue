@@ -3,15 +3,13 @@
         v-bind:class="{'done': done}"
         v-on:click="handleClick"
     >
-        <span v-if="done">✔</span> {{ text }}
+        <span v-if="done">✔</span>
+        <slot />
     </li>
 </template>
 <script>
     export default {
         props: {
-            text: {
-                type: String
-            },
             done: {
                 type: Boolean
             }
