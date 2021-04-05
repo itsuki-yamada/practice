@@ -18,6 +18,18 @@
 import { ref, reactive, computed } from "vue";
 import ToDoItem from "./ToDoItem.vue";
 
+function userTextFilter(items, getItemText) {
+	const filterValue = ref('');
+	const filteredItems = computed(() => {
+		if(!filterValue.value){
+			return items;
+		}
+		return items.filter(item => getItemText(item)
+			.includes(filterValue.value))
+	})
+	return { filterValue, filteredItems }
+}
+
 export default {
 	components: { ToDoItem },
   setup() {
@@ -36,13 +48,13 @@ export default {
     };
 
     // ToDoリストの絞り込み関連の定義
-    const filterValue = ref("");
-    const filteredTodoItems = computed(() => {
-      if (!filterValue.value) {
-        return todoItems;
-      }
-      return todoItems.filter((todo) => todo.text.includes(filterValue.value));
-    });
+    const {
+			filterValue,
+			filteredItems: filteredTodoItems
+		} = userTextFilter(
+			todoItems,
+			todo => todo.text
+		)
     return {
       inputValue,
       filterValue,
