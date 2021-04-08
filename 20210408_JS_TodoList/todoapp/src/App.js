@@ -1,6 +1,7 @@
 import { TodoListModel } from "./model/TodoListModel.js";
 import { TodoItemModel } from "./model/TodoItemModel.js";
-import { element, render } from "./view/html-util.js";
+import { TodoListView } from "./view/TodoListView.js";
+import { render } from "./view/html-util.js";
 
 export class App {
   constructor() {
@@ -16,31 +17,16 @@ export class App {
 
     // 2. TodoListModelの状態が更新されたら表示を更新する
     this.todoListModel.onChange(() => {
-      const todoListElement = element`<ul />`;
-      // それぞれのTodoitem要素をtodoListElement以下へ追加する
       const todoItems = this.todoListModel.getTodoItems();
-      todoItems.forEach((item) => {
-        const todoItemElement = item.completed
-          ? element`<li><input type="checkbox" class="checkbox" checked> <s>${item.title}</s><button class="delete">x</button></li>`
-          : element`<li><input type="checkbox" class="checkbox"> ${item.title} <button class="delete">x</button></li>`;
+      const todoListView = new TodoListView();
 
-        // チェックボックスがトグルした時のイベントリスナー関数を登録
-        const inputCheckboxElement = todoItemElement.querySelector(".checkbox");
-        inputCheckboxElement.addEventListener("change", () => {
-          this.todoListModel.updateTodo({
-            id: item.id,
-            completed: !item.completed,
-          });
-        });
-
-        // 削除ボタンが押下されたときにTodoListModelからアイテムを削除する
-        const deleteButtonElement = todoItemElement.querySelector(".delete");
-        deleteButtonElement.addEventListener("click", ()=>{
-          this.todoListModel.deleteTodo({
-            id: item.id
-          })
-        })
-        todoListElement.appendChild(todoItemElement);
+      const todoListElement = todoListView.createElement(todoItems, {
+        onUpdateTodo: ({ id, completed }) => {
+          this.todoListModel.updateTodo({ id, completed });
+        },
+        onDeleteTodo: ({ id }) => {
+          this.todoListModel.deleteTodo({ id });
+        },
       });
       // containerElementの中身をtodoListElementで上書きする
       render(todoListElement, containerElement);
