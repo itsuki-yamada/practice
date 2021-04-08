@@ -7,7 +7,27 @@
     <title>ToDoApp</title>
   </head>
   <body>
-    <h1>ToDoApp</h1>
-    <script src="index.js" type="module"></script>
+    <div class="todoapp">
+      <!-- 新規ToDoアイテム作成フォーム -->
+      <form id="js-form">
+        <input
+          type="text"
+          id="js-form-input"
+          class="new-todo"
+          placeholder="What need to be done?"
+          autocomplete="off"
+        />
+      </form>
+
+      <!-- ToDoリスト表示領域 -->
+      <div id="js-todo-list" class="new-todo"></div>
+
+      <footer class="footer">
+          <!-- ToDoアイテム数を表示する -->
+          <span id="js-todo-count">ToDoアイテム数: 0</span>
+      </footer>
+    </div>
+
+    <script src="./index.js" type="module"></script>
   </body>
 </html>
