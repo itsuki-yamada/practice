@@ -18,7 +18,7 @@ export class TodoListModel extends EventEmitter {
   }
 
   /**
-   * 表示的るTodoItemの配列を返す
+   * 表示できるTodoItemの配列を返す
    * @returns {TodoItemModel[]}
    */
   getTodoItems() {
