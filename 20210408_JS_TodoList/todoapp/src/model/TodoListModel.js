@@ -1,6 +1,6 @@
 import { EventEmitter } from "../EventEmitter.js";
 
-export class EventListModel extends EventEmitter {
+export class TodoListModel extends EventEmitter {
   /**
    * @param {TodoItemModel[]} [items] 初期アイテム一覧（デフォルトは空の配列）
    */
