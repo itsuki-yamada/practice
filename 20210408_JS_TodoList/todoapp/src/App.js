@@ -4,9 +4,22 @@ import { TodoListView } from "./view/TodoListView.js";
 import { render } from "./view/html-util.js";
 
 export class App {
-  constructor() {
+  constructor({
+    formElement,
+    inputElement,
+    containerElement,
+    todoItemCountElement,
+  }) {
     this.todoListView = new TodoListView();
     this.todoListModel = new TodoListModel();
+    // bind to Element
+    this.formElement = formElement;
+    this.formInputElement = inputElement;
+    this.todoContainerElement = containerElement;
+    this.todoItemCountElement = todoItemCountElement;
+    // ハンドラ呼び出しでthisが常にAppのインスタンスを示すようにする
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   /**
@@ -33,36 +46,46 @@ export class App {
     this.todoListModel.deleteTodo({ id });
   }
 
+  /**
+   * フォーム送信時に呼ばれるリスナー関数
+   * @param {Event} event
+   */
+  handleSubmit(event) {
+    event.preventDefault();
+    const inputElement = this.formInputElement;
+    this.handleAdd(inputElement.value);
+    inputElement.value = "";
+  }
+
+  /**
+   * TodoListViewが変更されたときに呼ばれるリスナー関数
+   */
+  handleChange() {
+    const todoCountElement = this.todoItemCountElement;
+    const todoListContainerElement = this.todoContainerElement;
+    const todoItems = this.todoListModel.getTodoItems();
+    const todoListElement = this.todoListView.createElement(todoItems, {
+      // Appに定義したリスナー関数を呼び出す
+      onUpdateTodo: ({ id, completed }) => {
+        this.handleUpdate({ id, completed });
+      },
+      onDeleteTodo: ({ id }) => {
+        this.handleDelete({ id });
+      },
+    });
+    // containerElementの中身をtodoListElementで上書きする
+    render(todoListElement, todoListContainerElement);
+    // アイテム数の表示を更新
+    todoCountElement.textContent = `Todoアイテム数: ${this.todoListModel.getTotalCount()}`;
+  }
+
   mount() {
-    const formElement = document.getElementById("js-form");
-    const inputElement = document.getElementById("js-form-input");
-    const containerElement = document.getElementById("js-todo-list");
-    const todoItemCountElement = document.getElementById("js-todo-count");
+    this.todoListModel.onChange(this.handleChange);
+    this.formElement.addEventListener("submit", this.handleSubmit);
+  }
 
-    this.todoListModel.onChange(() => {
-      const todoItems = this.todoListModel.getTodoItems();
-      const todoListElement = todoListView.createElement(todoItems, {
-        onUpdateTodo: ({ id, completed }) => {
-          this.handleUpdate({ id, completed });
-        },
-        onDeleteTodo: ({ id }) => {
-          this.handleDelete({ id });
-        },
-      });
-      // containerElementの中身をtodoListElementで上書きする
-      render(todoListElement, containerElement);
-      // アイテム数の表示を更新
-      todoItemCountElement.textContent = `Todoアイテム数: ${this.todoListModel.getTotalCount()}`;
-    });
-
-    formElement.addEventListener("submit", (event) => {
-      //   submitイベント本来の動作を止める
-      event.preventDefault();
-
-      this.handleAdd(inputElement.value);
-
-      // 入力欄を空文字にしてリセットする
-      inputElement.value = "";
-    });
+  unmount() {
+    this.todoListModel.offChange(this.handleChange);
+    this.formElement.removeEventListener("submit", this.handleSubmit);
   }
 }

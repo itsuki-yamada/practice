@@ -34,6 +34,14 @@ export class TodoListModel extends EventEmitter {
   }
 
   /**
+   * TodoListの状態が更新されたときに呼び出されるリスナー関数を解除する
+   * @param {Function} listener
+   */
+  offChange(listener) {
+    this.removeEventListener("change", listener);
+  }
+
+  /**
    * 状態が変更されたときに呼ぶ、登録済みのリスナー関数を呼び出す
    */
   emitChange() {
@@ -69,7 +77,7 @@ export class TodoListModel extends EventEmitter {
    */
   deleteTodo({ id }) {
     // 'id'に一致しないTodoItemだけを残すことで、`id`に一致するTodoItemを削除する
-    this.items = this.items.filter(todo => {
+    this.items = this.items.filter((todo) => {
       return todo.id !== id;
     });
     this.emitChange();
