@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Vue</title>
+</head>
+<body>
+    <!-- 1. CDNからのDOM読み込み -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+
+    <!-- 5. Vueインスタンスの有効範囲 -->
+    <div id="app">
+        <!-- 6. マスタッシュ構文 -->
+        <p> Hello {{ world }} </p>
+        <!-- v-ifディレクティブ -->
+        <p v-if="count == 5">見えたよ</p>
+        <!-- 8. v-modelディレクティブ -->
+        <input v-model="world"><br>
+        <input type="number" v-model="count"/>
+    </div>
+
+    <script>
+        // 2. Vueインスタンスの作成
+        new Vue({
+            el: "#app",
+            data(){
+                return{
+                  world: "Vue",
+                  count: 0  
+                }
+            }
+        })
+    </script>
+</body>
+</html>
