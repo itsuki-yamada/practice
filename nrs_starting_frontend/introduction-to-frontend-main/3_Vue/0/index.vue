@@ -4,15 +4,37 @@
     <section>
       <h2>Exercise</h2>
       <ul>
-        <li>Result: <span id="result"></span></li>
-        <li>Message: <span id="message"></span></li>
+        <li>Result: {{ result }}</li>
+        <li>Message: {{ message }}</li>
       </ul>
-      <button id="execute">run</button>
-      <button id="delete">delete</button>
+      <button @click="executeButtonClick">run</button>
+      <button @click="deleteButtonClick">delete</button>
     </section>
   </div>
 </template>
 
 <script>
-module.exports = {}
+module.exports = {
+  data: () => {
+    return {
+      result: '',
+      message: '',
+    };
+  },
+  methods: {
+    async executeButtonClick() {
+      console.info(this);
+      this.message = 'execute button clicked';
+      axios.get('https://httpbin.org/uuid').then((response) => {
+        console.info(this);
+        this.result = response.data.uuid;
+        this.message = 'data received';
+      });
+    },
+    deleteButtonClick() {
+      this.message = 'delete button clicked';
+      this.data = '';
+    },
+  },
+};
 </script>
